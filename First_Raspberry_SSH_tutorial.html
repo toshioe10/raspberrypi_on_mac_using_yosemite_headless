@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>First Raspeberry Connection</title>
+</head>
+<style>
+body {
+	font-size: 16px;
+	line-height: 1.5em;
+	font-family: "Helvetica Neue";
+	color:black;
+	background-color: lightgrey;
+	margin: 0;
+	padding: 20px;
+	max-width: 1000px;
+}
+#title {
+	color: red;
+	line-height: 0.3em;
+	text-align: center;
+}
+
+#subtile{
+	color: red;
+	line-height: 0.3em;
+	text-align: center;
+}
+p {
+	line-height: 1em;
+	overflow: visible;
+	/*margin: 0px;*/
+}
+ol {
+	margin-top: 1em;
+	margin-bottom: 1em;
+	margin-left: 2em;
+	margin-right: 2em;
+	
+}
+code {
+  padding: 1px;
+  border: 1px solid rgb(170,170,170);
+  box-shadow: 0 2px 2px rgba(50,50,50,0.9);
+  box-shadow: inset 0 0 2px rgba(200,200,200,0.9);
+  background-color: rgb(220,220,220);
+  border-radius: 4px;
+  color: rgb(200,50,50);
+}
+pre {
+  padding: 2px;
+  border: 1px solid rgb(170,170,170);
+  box-shadow: 0 2px 2px rgba(50,50,50,0.9);
+  box-shadow: inset 0 0 2px rgba(200,200,200,0.9);
+  background-color: rgb(220,220,220);
+  border-radius: 4px;
+  color: rgb(200,50,50);
+
+}
+</style>
+
+<body>
+    <h1 id="title">First time Raspberry setup</h1>
+    <h2 id="subtile">without screen / display and keyboard</h2>
+    <h2 id="subtile">using Mac Os X - Yosemite</h2>
+    <p>You just got the brand new update version of Raspberry Pi: Raspberry Pi model B+. And now what?</p>
+
+    <p>As a teacher, or anybody else without computer skills (like me), you need to setup and perform the Os installation.</p>
+
+    <p>This guide is made for you. No blah blah bla, no bullshit. Nice, and simple.</p>
+
+    <p>If you use windows, I suggest you to check out <a target="_blank" href="http://pihw.wordpress.com/guides/direct-network-connection/">Meltwater's guide</a> For linux users, the following guide is quite similar to mac. In this example, it is used a Macbook Pro 13" mid2010 with Mac Os Yosemite (10.10), a graphical SDcard builder<a target="_blank" href="http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/">Apple-Pi-Baker v1.6 , 3.6MB released on June 26, 2014.</a>, Iphone power supply and a wirelless-router.</p>
+    <p>What you need:</p>
+    <ol>
+        <li>5V microUSB power supply. <a target="_blank" href="http://www.raspberrypi.org/help/faqs/#powerReqs">According Official website</a>, Model B+ boards are slightly more power efficient and its circuits requires between 600-2000mA (0.6-2.0A). Electric-current requirements relies on what you connect to it. As <a href="http://www.raspberrypi.org/help/faqs/#powerReqs">reference</a>, 1200mA (1.2A) are enough for most applicattions, including this one!</li>
+        <li>a network cable</li>
+        <li>a laptop or computer with ethernet port avaliable (RJ-45). If your internet access is done via cable, in this case you need an extra ethernet card.</li>
+        <li>a microSDcard at least class 4 with minimum 8GB</li>
+        <li>a copy of Raspbian downloaded at <a target="_blank" href="http://www.raspberrypi.org/downloads/">official Raspberry website</a>.</li>
+        <li>setup your SSH conectivity, on your laptop/computer. Since you use a Mac, you are ready to go.</li>
+        <li>Optional: In this guide, I used a wireless-router and attached the Raspeberry Pi. However, the router is not needed.</li>
+    </ol>
+
+    <h2>Step1: Preparation</h2>
+    <p>Insert the microSD card into laptop. Now download and install any of these graphical interface: <a target="_blank" href="http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/">ApplePi-Baker(free, closed-source, 3.6MB</a> or <a target="_blank" href="http://sourceforge.net/projects/piwriter/">PiWriter(free, open-source)</a>, or <a href="http://ivanx.com/raspberrypi/">Pi Filler</a>.</p>
+
+    <p>Open the choosen graphical interface card builder and following the procedures. If You choose Apple-Pi-Baker:</p>
+<ul>
+    <li>Select the microSD card (step 1 as shown in the figure bellow), and hit "Prep for NOOBS" button (step 2 as shown in the figure bellow).</li>
+    <li>After wait a little bit, its time to build the image into microSD card. Click "Restore Backup" button (step 3 as shown in the figure bellow) and choose the image you saved(step 4 as shown in the figure bellow).The build process should begin.</li>
+    <li>When it's done, remove graphical interface SDcard buider, you don't need it anymore.</li>
+    <img src="img/Apple-Pi-Baker-steps.png" alt="" width="996" height="661" />
+    </ul>
+
+    <h2>Step2: Edit installation files</h2>
+    <ol>
+        <li>Open the SDcard, copy the
+            <code>cmdline.txt</code> file and rename it to <code>cmdline.normal</code></li>
+        <li>Launch terminal and type
+            <code>ifconfig</code> command to get your laptop IP address. In my case, it is <code>192.168.2.102</code></li>
+        <li>Open cmdline.txt and give to the raspeberry a local ip address, modifying just the last number's sequence, someting like:
+            <br />
+            <code>ip=192.168.1.XXX</code>, where XXX will be the Raspberry's IP address you just gave.</li>
+        <li>Save it, make one more copy, and rename it to <code>cmdline.direct</code></li>
+        <li>Remove SDcard from laptop / computer and insert into Raspberry Pi.</li>
+    </ol>
+    <h2>Step3: Making the first remote connection</h2>
+    <ol>
+    	<li>On Mac, go to System Preferences > Sharing and check the following options (You migt be asked for password):
+    	<ul>
+    	<li>File Sharing</li>
+    	<li>Internet Sharing</li>
+    	</ul>
+    	</li>
+      <li>Attach the network cable into wireless router and Raspberry Pi</li>
+      <li>Now it's time to power UP!</li>
+      <li>Wait a little bit, something like 30 seconds, launch Terminal (on Mac) and type <code>ssh -X</code> command, wich has thefollowing syntax: <code>ssh -X user@hostname</code>. In our example, just type and follow the instruction given by prompt:
+      <blockquote>
+      	<code>
+
+      		ssh -X pi@192.168.2.104
+      	</code><br />
+      	When asked for password just type <br />
+      	<code>
+      		raspberry
+      	</code>
+
+      </blockquote>
+      </li>
+
+
+    </ol>
+    <p>It's done! Now you are connected to Raspberry Pi, and from here you are ready to go, installing <a target="_blank" href="http://www.raspberrypi.org/documentation/remote-access/vnc/">VNC</a>, setup internet config and so on!</p>
+
+<br />
+
+<h2>Optional</h2>
+
+<p>If you want to setup the internet config:</p>
+
+<p><code>$ sudo nano /etc/network/interfaces</code></p>
+<p>Delete its contents, and simply copy and paste:</p>
+
+<pre>auto eth0 
+iface lo inet loopback 
+
+allow-hotplug wlan0 
+iface eth0 inet dhcp 
+address 192.168.2.102 # Static IP you want 
+netmask 255.255.255.0 
+gateway 192.168.2.1   # IP of your router
+
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+iface default inet dhcp
+
+</pre>
+
+<p><em>(ctrl-X, then type Y to quit and save)</em></p>
+
+<p>That's it. Maybe a reboot is required. Now the internet connection should be working. Congratulations!. If you want to setup a WiFi connection, you are almost done.</p>
+
+<h2>Configuring WiFi connection</h2>
+<p>This is not a step by step guide, just some hints that could be helpful. From previous wired connection it could be useful install <a target="_blank" href="http://www.raspberrypi.org/documentation/remote-access/vnc/">VNC</a>.</p>
+
+<p>Open up the wpa_supplicant.conf file in the editor.</p>
+
+<p><code>$ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf</code></p>
+
+<p>Just add the following.</p>
+
+<p><pre>network={<br>ssid="YOUR_NETWORK_NAME"<br>psk="YOUR_NETWORK_PASSWORD"<br>proto="See bellow"<br>key_mgmt="???????See bellow"<br>pairwise="???????See bellow"<br>auth_alg=OPEN<br>}</pre></p>
+
+<p>The other parameters are network specific, I can't tell you what you need. If you boot Raspbian to desktop, you can launch the wpa_gui (WiFi config) application and click 'Scan'. You'll find a list that has your network with all flags you need. To do this on a RPi, disconnect your keyboard and connect your dongle once the scanning list is open.</p>
+
+<ul>
+<li><code>proto</code> could be either <code>RSN</code> (WPA2) or <code>WPA</code> (WPA1).</li>
+<li><code>key_mgmt</code> could be either <code>WPA-PSK</code> (most probably) or <code>WPA-EAP</code> (enterprise networks)</li>
+<li><code>pairwise</code> could be either <code>CCMP</code> (WPA2) or <code>TKIP</code> (WPA1)</li>
+<li><code>auth_alg</code> is most probably <code>OPEN</code>, other options are <code>LEAP</code> and <code>SHARED</code></li>
+</ul>
+
+
+
+<p>Again: Wifi connection setup is just some hint. If you want to install VNC on Raspberry side:<code>sudo apt-get install tightvncserver</code>, and you should also install on your laptop, the client version.</p>
+
+<p>Have fun!</p>
+</body>
+
+</html>
