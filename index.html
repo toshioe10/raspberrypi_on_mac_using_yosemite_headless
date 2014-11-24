@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Raspberrypi on mac using yosemite headless : Nice and simple step by step to install Raspbian using Mac Os Yosemite 10.10.1">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Raspberrypi on mac using yosemite headless</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/toshioe10/raspberrypi_on_mac_using_yosemite_headless">View on GitHub</a>
+
+          <h1 id="project_title">Raspberrypi on mac using yosemite headless</h1>
+          <h2 id="project_tagline">Nice and simple step by step to install Raspbian using Mac Os Yosemite 10.10.1</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/toshioe10/raspberrypi_on_mac_using_yosemite_headless/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/toshioe10/raspberrypi_on_mac_using_yosemite_headless/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="first-time-raspberry-setup" class="anchor" href="#first-time-raspberry-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>First time Raspberry setup</h1>
+
+<h3>
+<a id="without-screen--display-and-keyboard" class="anchor" href="#without-screen--display-and-keyboard" aria-hidden="true"><span class="octicon octicon-link"></span></a>without screen / display and keyboard</h3>
+
+<h3>
+<a id="using-mac-os-x---yosemite" class="anchor" href="#using-mac-os-x---yosemite" aria-hidden="true"><span class="octicon octicon-link"></span></a>using Mac Os X - Yosemite</h3>
+
+<p>You just got the brand new update version of Raspberry Pi: Raspberry Pi model B+. And now what?</p>
+
+<p>As a teacher, or anybody else without computer skills (like me), you need to setup and perform the Os installation.</p>
+
+<p>This guide is a simple guide made for you. No blah blah bla, no bullshit.</p>
+
+<p>If you use Windows Os, I suggest you to check out <a href="http://pihw.wordpress.com/guides/direct-network-connection/">Meltwater's guide</a> For Linux Os, the following guide is quite similar to mac. In this example, it is used a Macbook Pro 13" mid2010 with Mac Os Yosemite (10.10), a graphical SDcard builder<a href="http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/">Apple-Pi-Baker v1.6 , 3.6MB released on June 26, 2014.</a>, Iphone power supply and a wirelless-router.</p>
+
+<p>What you need:</p>
+
+<ol>
+<li> 5V microUSB power supply. <a href="http://www.raspberrypi.org/help/faqs/#powerReqs">According Official website</a>, Model B+ boards are slightly more power efficient and its circuits requires between 600-2000mA (0.6-2.0A). Electric-current requirements relies on what you connect to it. As <a href="http://www.raspberrypi.org/help/faqs/#powerReqs">reference</a>, 1200mA (1.2A) are enough for most applicattions, including this one!</li>
+<li> a network cable</li>
+<li> a laptop or computer with ethernet port avaliable (RJ-45). If your internet access is done via cable, in this case you need an extra ethernet card.</li>
+<li> a microSDcard at least class 4 with minimum 8GB</li>
+<li> a copy of Raspbian downloaded at <a href="http://www.raspberrypi.org/downloads/">official Raspberry website</a>.</li>
+<li> setup your SSH conectivity, on your laptop/computer. Since you use a Mac, you are ready to go.</li>
+<li> Optional: In this guide, I used a wireless-router and attached the Raspeberry Pi. However, the router is not needed.</li>
+</ol>
+
+<h2>
+<a id="step1-preparation" class="anchor" href="#step1-preparation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step1: Preparation</h2>
+
+<p>Insert the microSD card into laptop. Now download and install any of these graphical interface: <a href="http://www.tweaking4all.com/hardware/raspberry-pi/macosx-apple-pi-baker/">ApplePi-Baker(free, closed-source, 3.6MB</a> or <a href="http://sourceforge.net/projects/piwriter/">PiWriter(free, open-source)</a>, or <a href="http://ivanx.com/raspberrypi/">Pi Filler</a>.</p>
+
+<p>Open the choosen graphical interface card builder and following the procedures. If You choose Apple-Pi-Baker:</p>
+
+<ul>
+<li>  Select the microSD card (step 1 as shown in the figure bellow), and hit "Prep for NOOBS" button (step 2 as shown in the figure bellow).</li>
+<li>  After wait a little bit, its time to build the image into microSD card. Click "Restore Backup" button (step 3 as shown in the figure bellow) and choose the image you saved(step 4 as shown in the figure bellow).The build process should begin.</li>
+<li>
+<p>When it's done, remove graphical interface SDcard buider, you don't need it anymore.
+--&gt;<img src="https://github.com/toshioe10/raspberrypi_on_mac_using_yosemite_headless/blob/master/img/Apple-Pi-Baker-steps.png" alt="alt text"></p>
+
+<h2>
+<a id="step2-edit-installation-files" class="anchor" href="#step2-edit-installation-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step2: Edit installation files</h2>
+</li>
+</ul>
+
+<ol>
+<li> Open the SDcard, copy the <code>cmdline.txt</code> file and rename it to <code>cmdline.normal</code>
+</li>
+<li> Launch terminal and type <code>ifconfig</code> command to get your laptop IP address. In my case, it is <code>192.168.2.102</code>
+</li>
+<li> Open cmdline.txt and give to the raspeberry a local ip address, modifying just the last number's sequence, someting like:
+<code>ip=192.168.1.XXX</code>, where XXX will be the Raspberry's IP address you just gave.</li>
+<li> Save it, make one more copy, and rename it to <code>cmdline.direct</code>
+</li>
+<li> Remove SDcard from laptop / computer and insert into Raspberry Pi.</li>
+</ol>
+
+<h2>
+<a id="step3-making-the-first-remote-connection" class="anchor" href="#step3-making-the-first-remote-connection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step3: Making the first remote connection</h2>
+
+<ol>
+<li>
+<p>On Mac, go to System Preferences &gt; Sharing and check the following options (You migt be asked for password):</p>
+
+<ul>
+<li>  File Sharing</li>
+<li>  Internet Sharing</li>
+</ul>
+</li>
+<li><p>Attach the network cable into wireless router and Raspberry Pi</p></li>
+<li> Now it's time to power UP!</li>
+<li>
+<p>Wait a little bit, something like 30 seconds, launch Terminal (on Mac) and type <code>ssh -X</code> command, wich has thefollowing syntax: <code>ssh -X user@hostname</code>. In our example, just type and follow the instruction given by prompt:</p>
+
+<blockquote>
+<p><code>ssh -X pi@192.168.2.102</code>
+ When asked for password just type
+ <code>raspberry</code></p>
+</blockquote>
+</li>
+</ol>
+
+<p>It's done! Now you are connected to Raspberry Pi, and from here you are ready to go, installing <a href="http://www.raspberrypi.org/documentation/remote-access/vnc/">VNC</a>, setup internet config and so on!</p>
+
+<p>Have fun!</p>
+
+<h2>
+<a id="optional" class="anchor" href="#optional" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optional</h2>
+
+<p>If you want to setup the internet config:</p>
+
+<p><code>$ sudo nano /etc/network/interfaces</code></p>
+
+<p>Delete its contents, and simply copy and paste:</p>
+
+<pre><code>auto eth0 
+iface lo inet loopback 
+
+allow-hotplug wlan0 
+iface eth0 inet dhcp 
+address 192.168.2.102 # Static IP you want 
+netmask 255.255.255.0 
+gateway 192.168.2.1   # IP of your router
+
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+iface default inet dhcp
+</code></pre>
+
+<p><em>(ctrl-X, then type Y to quit and save)</em></p>
+
+<p>That's it. Maybe a reboot is required. Now the internet connection should be working. Congratulations!. If you want to setup a WiFi connection, you are almost done.</p>
+
+<h2>
+<a id="about-wifi-connection" class="anchor" href="#about-wifi-connection" aria-hidden="true"><span class="octicon octicon-link"></span></a>About WiFi connection</h2>
+
+<p>This is not a step by step guide, just some hints that could be helpful. From previous wired connection it might be useful install <a href="http://www.raspberrypi.org/documentation/remote-access/vnc/">VNC</a>.</p>
+
+<p>You will need to edit, at least, these files:
+ <code>sudo nano /etc/wpa_supplicant/wpa_supplicant.conf</code> 
+and
+ <code>sudo nano /etc/network/interfaces</code> again, to something like</p>
+
+<pre><code>    auto lo
+
+    iface lo inet loopback
+    iface eth0 inet dhcp
+
+    auto wlan0
+    allow-hotplug wlan0
+    iface wlan0 inet dhcp
+    wpa-scan-ssid 1
+    wpa-ap-scan 1
+    wpa-key-mgmt XXXXXXXXSee bellow
+    wpa-proto XXXXXXXXX See bellow
+   wpa-pairwise CCMP TKIP
+   wpa-group CCMP TKIP
+   wpa-ssid "Wifi SSID"
+   wpa-psk "wifi password"
+   auth_alg=OPEN
+
+
+   iface default inet dhcp
+</code></pre>
+
+<ul>
+<li>  <code>proto</code> could be either <code>RSN</code> (WPA2) or <code>WPA</code> (WPA1).</li>
+<li>  <code>key_mgmt</code> could be either <code>WPA-PSK</code> (most probably) or <code>WPA-EAP</code> (enterprise networks)</li>
+<li>  <code>pairwise</code> could be either <code>CCMP</code> (WPA2) or <code>TKIP</code> (WPA1)</li>
+<li>  <code>auth_alg</code> is most probably <code>OPEN</code>, other options are <code>LEAP</code> and <code>SHARED</code>
+</li>
+</ul>
+
+<p>If you boot Raspbian to desktop, you can launch the wpa_gui (WiFi config) application and click 'Scan'. You'll find a list that has your network with all flags you need. To do this on a RPi, disconnect your keyboard and connect your dongle once the scanning list is open.</p>
+
+<p>Again: Wifi connection setup is just some hint. If you want to install VNC on Raspberry side:<code>sudo apt-get install tightvncserver</code>, and you should also install on your laptop, the client version.</p>
+
+<h3>
+<a id="contributors-support-or-contact" class="anchor" href="#contributors-support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributors, Support or Contact</h3>
+
+<p><a href="https://github.com/toshioe10">Eduardo Toshio</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Raspberrypi on mac using yosemite headless maintained by <a href="https://github.com/toshioe10">toshioe10</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
